@@ -7,7 +7,6 @@ import FormArea from "./FormArea";
 import FilterList from "./FilterList";
 import GroupList from "./GroupList";
 
-
 const CountryList = () => {
   const [search, setSearch] = useState(""); // Arama terimi için state
   const [group, setGroup] = useState(""); // Gruplama alanı olarak "currency" ayarlandı
@@ -111,14 +110,16 @@ const CountryList = () => {
           groupSize={groupSize}
         />
       </div>
-      {groupedCountries(
-        countries,
-        group,
-        selectedCountries,
-        handleCountryClick,
-        randomColor,
-        filterData
-      )}
+      <div className="">
+        {groupedCountries(
+          countries,
+          group,
+          selectedCountries,
+          handleCountryClick,
+          randomColor,
+          filterData
+        )}
+      </div>
     </div>
   );
 };
@@ -129,22 +130,55 @@ const groupedCountries = (
   selectedCountries,
   handleCountryClick,
   randomColor,
-   filterData
-
+  filterData,
+  group
 ) => {
   if (!groupBy) {
     return (
-      <ul>
-        {filterData.map((country) => (
-          <FilterList
-            key={country.code}
-            country={country}
-            selectedCountries={selectedCountries}
-            randomColor={randomColor}
-            handleCountryClick={handleCountryClick}
-          />
-        ))}
-      </ul>
+    <>
+    
+        {filterData.length > 0 ? (
+          <div className="relative w-[900px] overflow-x-auto  shadow-2xl mt-5 mb-5 rounded-md ">
+          <table className="text-sm w-full text-left text-gray-500 p-5">
+            <thead className="text-sm text-gray-200 capitalize bg-blue-500">
+              <tr>
+                <th scope="col" className="px-2 py-2">
+                  Code
+                </th>
+                <th scope="col" className="px-2 py-2">
+                  Country
+                </th>
+                <th scope="col" className="px-2 py-2">
+                  Capital
+                </th>
+                <th scope="col" className="px-2 py-2">
+                  Native
+                </th>
+                <th scope="col" className="px-2 py-2">
+                  Currency
+                </th>
+                <th scope="col" className="px-2 py-2">
+                  Phone
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <FilterList
+                filterData={filterData}
+                selectedCountries={selectedCountries}
+                randomColor={randomColor}
+                handleCountryClick={handleCountryClick}
+              />
+            </tbody>
+          </table>
+             </div>
+        ) : (
+          <div className="flex items-center justify-center mt-5">
+          <p className=" text-gray-50 bg-red-700 px-4 py-4 rounded-lg">Not found Data</p>
+          </div>
+        )} 
+   </>
     );
   }
 
@@ -172,9 +206,13 @@ const groupedCountries = (
   // Grupları gösterin
   return (
     <div>
-      {Object.entries(groupData).map(([group, countryList]) => (
-        <GroupList key={group} group={group} countryList={countryList}/>
-      ))}
+      { (
+        <>
+          {Object.entries(groupData).map(([group, countryList]) => (
+            <GroupList key={group} group={group} countryList={countryList}  groupData={groupData}/>
+          ))}
+        </>
+      )}
     </div>
   );
 };
