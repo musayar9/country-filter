@@ -6,10 +6,11 @@ const FilterList = ({
   randomColor,
   handleCountryClick,
 }) => {
+console.log(filterData);
   return (
     <>
       {filterData.map((country) => (
-        <tr 
+        <tr
           key={country.code}
           style={{
             backgroundColor:
@@ -17,7 +18,6 @@ const FilterList = ({
                 ? randomColor // Seçili ülkenin arka plan rengi
                 : "white",
             cursor: "pointer",
-           
           }}
           onClick={() => handleCountryClick(country)}
         >
@@ -29,10 +29,10 @@ const FilterList = ({
           <td className="px-4  py-2  text-gray-900">{country.native}</td>
           <td className="px-4  py-2  text-gray-900">{country.currency}</td>
           <td className="px-4  py-2  text-gray-900">(+{country.phone})</td>
+        
         </tr>
       ))}
     </>
-
   );
 };
 
