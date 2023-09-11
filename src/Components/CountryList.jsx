@@ -4,6 +4,8 @@ import { GET_COUNTRIES } from "../queries";
 import Loading from "./Loading";
 import Error from "./Error";
 import FormArea from "./FormArea";
+import FilterList from "./FilterList";
+import GroupList from "./GroupList";
 
 
 const CountryList = () => {
@@ -12,7 +14,7 @@ const CountryList = () => {
   const [selectedCountries, setSelectedCountries] = useState([]); // Seçili ülkelerin listesi
   const [randomColor, setRandomColor] = useState(null);
   const [filterData, setFilterData] = useState([]);
-  const [groupSize, setGroupSize] = useState(0);
+  const [groupSize, setGroupSize] = useState("");
   const { loading, error, data } = useQuery(GET_COUNTRIES, {
     variables: {
       groupBy: group, // Gruplama alanı
@@ -97,40 +99,26 @@ const CountryList = () => {
   };
 
   return (
-    <div>
-      <div>
-        {/* <h1>Ülkeler</h1>
-        <input
-          type="text"
-          placeholder="Ülke Ara"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />{" "}
-        <input
-          type="text"
-          placeholder="Currency göre grupla"
-          value={group}
-          onChange={(e) => setGroup(e.target.value)}
+    <div className=" flex flex-col items-center justify-center mt-10">
+      <div className="shadow shadow-slate-400 rounded-lg w-[400px] md:w-[600px] lg:w-[800px] p-10">
+        <FormArea
+          search={search}
+          setSearch={setSearch}
+          group={group}
+          setGroup={setGroup}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          groupSize={groupSize}
         />
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Grup Boyutu"
-            value={groupSize}
-            onChange={handleChange}
-          />
-          <button type="suböit">grupla</button>
-        </form> */}
-        <FormArea search={search} setSearch={setSearch} group={group} setGroup={setGroup} handleChange={handleChange} handleSubmit={handleSubmit} groupSize={groupSize}/>
-        {groupedCountries(
-          countries,
-          group,
-          selectedCountries,
-          handleCountryClick,
-          randomColor,
-          filterData
-        )}
       </div>
+      {groupedCountries(
+        countries,
+        group,
+        selectedCountries,
+        handleCountryClick,
+        randomColor,
+        filterData
+      )}
     </div>
   );
 };
@@ -147,22 +135,15 @@ const groupedCountries = (
   if (!groupBy) {
     return (
       <ul>
-        {filterData
-          .map((country) => (
-            <li
-              key={country.code}
-              style={{
-                backgroundColor:
-                  selectedCountries === country.code
-                    ? randomColor // Seçili ülkenin arka plan rengi
-                    : "white",
-                cursor: "pointer",
-              }}
-              onClick={() => handleCountryClick(country)}
-            >
-              {country.name}-{country.currency}
-            </li>
-          ))}
+        {filterData.map((country) => (
+          <FilterList
+            key={country.code}
+            country={country}
+            selectedCountries={selectedCountries}
+            randomColor={randomColor}
+            handleCountryClick={handleCountryClick}
+          />
+        ))}
       </ul>
     );
   }
@@ -192,14 +173,7 @@ const groupedCountries = (
   return (
     <div>
       {Object.entries(groupData).map(([group, countryList]) => (
-        <div key={group}>
-          <h2>{group}</h2>
-          <ul>
-            {countryList.map((country) => (
-              <li key={country.code}>{country.name}</li>
-            ))}
-          </ul>
-        </div>
+        <GroupList key={group} group={group} countryList={countryList}/>
       ))}
     </div>
   );
