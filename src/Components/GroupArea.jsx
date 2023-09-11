@@ -8,7 +8,8 @@ const GroupArea = ({
   handleCountryClick,
   randomColor,
   setGroupSize,
-  search
+  search,
+  setSearch,
 }) => {
   const [count, setCount] = useState(0);
 
@@ -19,6 +20,7 @@ const GroupArea = ({
     setIsGroup(false);
     setCount(0);
     setGroupSize(" ")
+    setSearch("")
   };
   return (
     <>

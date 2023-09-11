@@ -17,6 +17,8 @@ const CountryList = () => {
   const [groupSize, setGroupSize] = useState("");
   const [groupArea, setGroupArea] = useState([]);
   const [isGroup, setIsGroup] = useState(false);
+
+
   const { loading, error, data } = useQuery(GET_COUNTRIES, {
     variables: {
       groupBy: group, // Gruplama alanı
@@ -62,7 +64,11 @@ const CountryList = () => {
       }
     }
   }, [loading, data, search, group, setFilterData]);
-  if (loading) return <Loading />;
+  if (loading) return (
+    <div className="mt-10">
+      <Loading />
+    </div>
+  );
   if (error) return <Error message={error.message} />;
 
   // Geri kalan bileşen kodu...
@@ -89,7 +95,6 @@ const CountryList = () => {
       console.log(groups); // Gruplanmış verileri konsola yazdır
       setGroupArea(groups);
       setIsGroup(true);
-   
     }
   };
 
@@ -102,6 +107,7 @@ const CountryList = () => {
 
     return groups;
   };
+
 
   return (
     <div className=" flex flex-col items-center justify-center mt-10">
@@ -116,14 +122,16 @@ const CountryList = () => {
           groupSize={groupSize}
         />
       </div>
-      <div className={isGroup && "hidden"}>
+      <div className={isGroup ? "hidden": "flex"}>
         {groupedCountries(
           countries,
           group,
           selectedCountries,
           handleCountryClick,
           randomColor,
-          filterData
+          filterData,
+          setFilterData,
+   
         )}
       </div>
 
@@ -136,6 +144,7 @@ const CountryList = () => {
           handleCountryClick={handleCountryClick}
           setGroupSize={setGroupSize}
           search={search}
+          setSearch={setSearch}
         />
       )}
     </div>
@@ -149,8 +158,10 @@ const groupedCountries = (
   handleCountryClick,
   randomColor,
   filterData,
-  group
+
 ) => {
+
+
   if (!groupBy) {
     return (
       <>
@@ -159,9 +170,7 @@ const groupedCountries = (
             <table className="text-sm w-full text-left text-gray-500 p-5">
               <thead className="text-sm text-gray-200 capitalize bg-blue-500">
                 <tr>
-                  <th scope="col" className="px-2 py-2">
-                    Code
-                  </th>
+                  <th scope="col" className="px-2 py-2">Code</th>
                   <th scope="col" className="px-2 py-2">
                     Country
                   </th>
@@ -239,7 +248,9 @@ const groupedCountries = (
               ))}
             </>
           ) : (
-            <div className="mt-10"><Loading/></div>
+            <div className="mt-10">
+              <Loading />
+            </div>
           )}
         </>
       }

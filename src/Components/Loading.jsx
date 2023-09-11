@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Loading = () => {
-  return <div className="loading mt-10"></div>;
+  return <div className="loading  flex items-center justify-center">
+  </div>;
 }
 
 export default Loading
