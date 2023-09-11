@@ -6,6 +6,7 @@ import Error from "./Error";
 import FormArea from "./FormArea";
 import FilterList from "./FilterList";
 import GroupList from "./GroupList";
+import GroupArea from "./GroupArea";
 
 const CountryList = () => {
   const [search, setSearch] = useState(""); // Arama terimi için state
@@ -14,6 +15,8 @@ const CountryList = () => {
   const [randomColor, setRandomColor] = useState(null);
   const [filterData, setFilterData] = useState([]);
   const [groupSize, setGroupSize] = useState("");
+  const [groupArea, setGroupArea] = useState([]);
+  const [isGroup, setIsGroup] = useState(false);
   const { loading, error, data } = useQuery(GET_COUNTRIES, {
     variables: {
       groupBy: group, // Gruplama alanı
@@ -51,7 +54,7 @@ const CountryList = () => {
       if (search === "" && filteredCountries.length >= 10) {
         // Eğer filtrelenen liste boş değilse, son öğeyi seç ve rengini ayarla
 
-        const value = countries[9];
+        const value = countries[10];
         handleCountryClick(value);
       } else if (search) {
         const lastCountry = filteredCountries[filteredCountries.length - 1];
@@ -84,6 +87,9 @@ const CountryList = () => {
     if (groupSize) {
       const groups = groupDataBySize(filterData, groupSize);
       console.log(groups); // Gruplanmış verileri konsola yazdır
+      setGroupArea(groups);
+      setIsGroup(true);
+   
     }
   };
 
@@ -110,7 +116,7 @@ const CountryList = () => {
           groupSize={groupSize}
         />
       </div>
-      <div className="">
+      <div className={isGroup && "hidden"}>
         {groupedCountries(
           countries,
           group,
@@ -120,6 +126,18 @@ const CountryList = () => {
           filterData
         )}
       </div>
+
+      {isGroup && (
+        <GroupArea
+          groupArea={groupArea}
+          setIsGroup={setIsGroup}
+          selectedCountries={selectedCountries}
+          randomColor={randomColor}
+          handleCountryClick={handleCountryClick}
+          setGroupSize={setGroupSize}
+          search={search}
+        />
+      )}
     </div>
   );
 };
@@ -159,7 +177,6 @@ const groupedCountries = (
                   <th scope="col" className="px-2 py-2">
                     Phone
                   </th>
-               
                 </tr>
               </thead>
 
@@ -210,14 +227,20 @@ const groupedCountries = (
     <div>
       {
         <>
-          {Object.entries(groupData).map(([group, countryList]) => (
-            <GroupList
-              key={group}
-              group={group}
-              countryList={countryList}
-              groupData={groupData}
-            />
-          ))}
+          {groupBy === "currency" ? (
+            <>
+              {Object.entries(groupData).map(([group, countryList]) => (
+                <GroupList
+                  key={group}
+                  group={group}
+                  countryList={countryList}
+                  groupData={groupData}
+                />
+              ))}
+            </>
+          ) : (
+            <div className="mt-10"><Loading/></div>
+          )}
         </>
       }
     </div>

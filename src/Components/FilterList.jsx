@@ -6,7 +6,7 @@ const FilterList = ({
   randomColor,
   handleCountryClick,
 }) => {
-console.log(filterData);
+
   return (
     <>
       {filterData.map((country) => (

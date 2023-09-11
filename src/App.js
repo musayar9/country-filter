@@ -1,7 +1,6 @@
 
 import CountryList from './Components/CountryList';
 import Navbar from './Components/Navbar';
-
 function App() {
   return (
     <>
