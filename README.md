@@ -22,7 +22,7 @@ Filtreleme işlemleri yapmak içinde  3 farklı  input alanı oluşturdum. Bu in
 
 
 
-| ![](images\5.jpg) | ![img-3](images\3.jpg) |
+| ![img-5](images\5.jpg) | ![img-3](images\3.jpg) |
 | ---------------------- | ---------------------- |
 
 
