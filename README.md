@@ -1,4 +1,4 @@
-## Ülke Filtreleme - [ViewProject](https://country-filter-six.vercel.app/)
+## Ülke Filtreleme - [Porjeyi Görüntüle](https://country-filter-six.vercel.app/)
  
 Projeyi yaparken javascript'in React framework'unu kullandım. Proje tasarımını Tailwindcss kullanarak yaptım. Grapghl üzerindende appolo kütüphanesini kullanarak verileri kendi localime çektim.
 
