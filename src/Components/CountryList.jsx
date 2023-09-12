@@ -7,17 +7,20 @@ import FormArea from "./FormArea";
 import FilterList from "./FilterList";
 import GroupList from "./GroupList";
 import GroupArea from "./GroupArea";
+import { FiArrowUp } from "react-icons/fi";
+import { backToTop, getRandomColor, groupDataBySize } from "./Function";
+
 
 const CountryList = () => {
   const [search, setSearch] = useState(""); // Arama terimi için state
   const [group, setGroup] = useState(""); // Gruplama alanı olarak "currency" ayarlandı
   const [selectedCountries, setSelectedCountries] = useState([]); // Seçili ülkelerin listesi
-  const [randomColor, setRandomColor] = useState(null);
+
   const [filterData, setFilterData] = useState([]);
   const [groupSize, setGroupSize] = useState("");
   const [groupArea, setGroupArea] = useState([]);
   const [isGroup, setIsGroup] = useState(false);
-
+  const [randomColor, setRandomColor] = useState(null);
 
   const { loading, error, data } = useQuery(GET_COUNTRIES, {
     variables: {
@@ -36,6 +39,9 @@ const CountryList = () => {
       setRandomColor(getRandomColor());
     }
   };
+
+
+
   useEffect(() => {
     if (!loading) {
       const countries = data.countries;
@@ -64,22 +70,17 @@ const CountryList = () => {
       }
     }
   }, [loading, data, search, group, setFilterData]);
-  if (loading) return (
-    <div className="mt-10">
-      <Loading />
-    </div>
-  );
+
+  if (loading)
+    return (
+      <div className="mt-10">
+        <Loading />
+      </div>
+    );
   if (error) return <Error message={error.message} />;
 
   // Geri kalan bileşen kodu...
   const countries = data.countries;
-
-  const getRandomColor = () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r},${g},${b})`;
-  };
 
   const handleChange = (e) => {
     const newSize = Number(e.target.value); // Girilen değeri bir tamsayıya çevirin
@@ -98,16 +99,6 @@ const CountryList = () => {
     }
   };
 
-  const groupDataBySize = (data, size) => {
-    console.log("size0", size);
-    const groups = [];
-    for (let i = 0; i < data.length; i += size) {
-      groups.push(data.slice(i, i + size));
-    }
-
-    return groups;
-  };
-
 
   return (
     <div className=" flex flex-col items-center justify-center mt-10">
@@ -122,7 +113,7 @@ const CountryList = () => {
           groupSize={groupSize}
         />
       </div>
-      <div className={isGroup ? "hidden": "flex"}>
+      <div className={isGroup ? "hidden" : "flex"}>
         {groupedCountries(
           countries,
           group,
@@ -131,7 +122,7 @@ const CountryList = () => {
           randomColor,
           filterData,
           setFilterData,
-   
+          loading
         )}
       </div>
 
@@ -158,10 +149,8 @@ const groupedCountries = (
   handleCountryClick,
   randomColor,
   filterData,
-
+  loading
 ) => {
-
-
   if (!groupBy) {
     return (
       <>
@@ -170,7 +159,9 @@ const groupedCountries = (
             <table className="text-sm w-full text-left text-gray-500 p-5">
               <thead className="text-sm text-gray-200 capitalize bg-blue-500">
                 <tr>
-                  <th scope="col" className="px-2 py-2">Code</th>
+                  <th scope="col" className="px-2 py-2">
+                    Code
+                  </th>
                   <th scope="col" className="px-2 py-2">
                     Country
                   </th>
@@ -198,13 +189,25 @@ const groupedCountries = (
                 />
               </tbody>
             </table>
+            <button
+              className="border border-gray-200 px-5 py-2 rounded-xl flex items-center justify-between space-x-3  hover:bg-gray-600 hover:text-gray-50 duration-700 hover:border-gray-300 active:translate-y-7 "
+              onClick={backToTop}
+              style={{ bottom: "20px", right: "40px", position: "fixed" }}
+            >
+              <FiArrowUp />{" "}
+              <span className="font-semibold text-md">Back To Top</span>
+            </button>
           </div>
         ) : (
-          <div className="flex items-center justify-center mt-5">
-            <p className=" text-gray-50 bg-red-700 px-4 py-4 rounded-lg">
-              Not found Data
-            </p>
-          </div>
+          <>
+            
+              <div className="flex items-center justify-center mt-5">
+                <p className=" text-gray-50 bg-red-700 px-4 py-4 rounded-lg">
+                  Data Not Found
+                </p>
+              </div>
+        
+          </>
         )}
       </>
     );

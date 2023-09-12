@@ -36,7 +36,7 @@ const FormArea = ({
           id="currencyGroup"
           placeholder=" "
           value={group}
-          onChange={(e) => setGroup(e.target.value)}
+          onChange={(e) => setGroup(e.target.value.toLowerCase())}
         />
 
         <label

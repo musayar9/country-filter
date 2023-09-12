@@ -1,10 +1,7 @@
-import React from 'react'
-import {FiArrowUp} from "react-icons/fi"
+import React from "react";
+import { FiArrowUp } from "react-icons/fi";
+import { backToTop } from "./Function";
 const GroupList = ({ group, countryList }) => {
-  const backToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <>
       <div className="border p-4 rounded shadow-md w-[900px] mt-10">
@@ -32,4 +29,4 @@ const GroupList = ({ group, countryList }) => {
   );
 };
 
-export default GroupList
+export default GroupList;

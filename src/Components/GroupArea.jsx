@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import GroupAreaList from './GroupAreaList';
+import React, { useState } from "react";
+import GroupAreaList from "./GroupAreaList";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 const GroupArea = ({
   groupArea,
@@ -19,17 +19,17 @@ const GroupArea = ({
   const handleTurnList = () => {
     setIsGroup(false);
     setCount(0);
-    setGroupSize(" ")
-    setSearch("")
+    setGroupSize(" ");
+    setSearch("");
   };
   return (
     <>
       <div className="flex items-end mt-5">
         <button
-          className="border border-gray-300 px-4 py-2 "
+          className=" px-4 py-2 rounded-md bg-blue-600 text-gray-50  hover:bg-blue-400 hover:text-gray-200 duration-200 active:translate-y-2"
           onClick={handleTurnList}
         >
-          Listeye Dön
+          Return List
         </button>
       </div>
       <div className="space-x-2 relative w-[900px] overflow-x-auto  shadow-2xl mt-5 mb-5 rounded-md">
@@ -94,4 +94,4 @@ const GroupArea = ({
   );
 };
 
-export default GroupArea
+export default GroupArea;
