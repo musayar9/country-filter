@@ -42,26 +42,29 @@ useEffect(()=>{
       {filterGroup.map((country, index) => (
         <tr
           key={country.code}
+          
           style={{
             backgroundColor:
               selectedCountries === country.code
                 ? randomColor // Seçili ülkenin arka plan rengi
                 : "white",
+
+                color:selectedCountries === country.code && randomColor ? "white" : "black",
             cursor: "pointer",
           }}
           onClick={() => handleCountryClick(country)}
         >
-          <td className="px-4  py-2 font-medium  text-gray-900 whitespace-nowrap">
+          <td className="px-4  py-2 font-medium whitespace-nowrap">
             {index + 1}
           </td>
-          <td className="px-4  py-2 font-medium  text-gray-900 whitespace-nowrap">
+          <td className="px-4  py-2 font-medium   whitespace-nowrap">
             {country.code}
           </td>
-          <td className="px-4  py-2 text-gray-900">{country.name}</td>
-          <td className="px-4  py-2  text-gray-900">{country.capital}</td>
-          <td className="px-4  py-2  text-gray-900">{country.native}</td>
-          <td className="px-4  py-2  text-gray-900">{country.currency}</td>
-          <td className="px-4  py-2  text-gray-900">(+{country.phone})</td>
+          <td className="px-4  py-2 ">{country.name}</td>
+          <td className="px-4  py-2  ">{country.capital}</td>
+          <td className="px-4  py-2 ">{country.native}</td>
+          <td className="px-4  py-2 ">{country.currency}</td>
+          <td className="px-4  py-2 ">(+{country.phone})</td>
         </tr>
       ))}
     </>
