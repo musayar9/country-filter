@@ -7,19 +7,20 @@ const FilterList = ({
   handleCountryClick,
   
 }) => {
-
+  /**representation of filtered data in the table */
   return (
     <>
       {filterData.map((country) => (
         <tr
+          className="transition-all duration-300"
           key={country.code}
           style={{
             backgroundColor:
               selectedCountries === country.code
-                ? randomColor // Seçili ülkenin arka plan rengi
+                ? randomColor // Background color of the selected country
                 : "white",
             color:
-              selectedCountries === country.code && randomColor
+              selectedCountries === country.code && randomColor // Text color of the selected country
                 ? "white"
                 : "black",
             cursor: "pointer",
@@ -29,7 +30,9 @@ const FilterList = ({
           <td className="px-4  py-2 font-medium  whitespace-nowrap">
             {country.code}
           </td>
-          <td className="px-4  py-2 " style={{}}>{country.name}</td>
+          <td className="px-4  py-2 " style={{}}>
+            {country.name}
+          </td>
           <td className="px-4  py-2 ">{country.capital}</td>
           <td className="px-4  py-2  ">{country.native}</td>
           <td className="px-4  py-2  ">{country.currency}</td>

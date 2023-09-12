@@ -9,6 +9,7 @@ const FormArea = ({
   handleSubmit,
   groupSize,
 }) => {
+  //Inputs Controls
   return (
     <div className="flex items-center justify-center space-x-2">
       <div className="relative z-20  mb-6 group">
@@ -72,7 +73,7 @@ const FormArea = ({
           type="submit"
           className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-4 py-2 text-center mr-2 mb-3  "
         >
-          Grupla
+        Show Group
         </button>
       </form>
     </div>

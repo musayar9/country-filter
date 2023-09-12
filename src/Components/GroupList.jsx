@@ -1,7 +1,6 @@
 import React from "react";
-import { FiArrowUp } from "react-icons/fi";
-import { backToTop } from "./Function";
 const GroupList = ({ group, countryList }) => {
+  //listing by currencies
   return (
     <>
       <div className="border p-4 rounded shadow-md w-[900px] mt-10">
@@ -14,17 +13,6 @@ const GroupList = ({ group, countryList }) => {
           ))}
         </ul>
       </div>
-      <button
-        className="border border-gray-200 px-5 py-2 
-                                                    rounded-xl flex items-center justify-between space-x-3
-                                                    hover:bg-gray-600 hover:text-gray-50 duration-700
-                                                    hover:border-gray-300 active:translate-y-7
-                                                    "
-        onClick={backToTop}
-        style={{ bottom: "20px", right: "40px", position: "fixed" }}
-      >
-        <FiArrowUp /> <span className="font-semibold text-md">Back To Top</span>
-      </button>
     </>
   );
 };

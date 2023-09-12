@@ -7,41 +7,40 @@ import FormArea from "./FormArea";
 import FilterList from "./FilterList";
 import GroupList from "./GroupList";
 import GroupArea from "./GroupArea";
-import { FiArrowUp } from "react-icons/fi";
-import { backToTop, getRandomColor, groupDataBySize } from "./Function";
-
+import {  getRandomColor, groupDataBySize } from "./Function";
+import TableHead from "./TableHead";
+import TopButton from "./TopButton";
 
 const CountryList = () => {
-  const [search, setSearch] = useState(""); // Arama terimi için state
-  const [group, setGroup] = useState(""); // Gruplama alanı olarak "currency" ayarlandı
-  const [selectedCountries, setSelectedCountries] = useState([]); // Seçili ülkelerin listesi
+  const [search, setSearch] = useState(""); // State for search term and filtering
+  const [group, setGroup] = useState(""); //state for "currency" as grouping field
+  const [selectedCountries, setSelectedCountries] = useState(""); // state definition for the selected country
+  const [filterData, setFilterData] = useState([]); // the filtered data is kept
+  const [groupSize, setGroupSize] = useState(""); //number of groupings
+  const [groupArea, setGroupArea] = useState([]); // place where grouped records are kept
+  const [isGroup, setIsGroup] = useState(false); //group  control
+  const [randomColor, setRandomColor] = useState(null); //color control
 
-  const [filterData, setFilterData] = useState([]);
-  const [groupSize, setGroupSize] = useState("");
-  const [groupArea, setGroupArea] = useState([]);
-  const [isGroup, setIsGroup] = useState(false);
-  const [randomColor, setRandomColor] = useState(null);
-
+  //Pulling and grouping data with useQuery
   const { loading, error, data } = useQuery(GET_COUNTRIES, {
     variables: {
-      groupBy: group, // Gruplama alanı
+      groupBy: group, // grouping by currencies
     },
   });
 
+  //change the color of the background of the selected country
   const handleCountryClick = (country) => {
     if (selectedCountries === country?.code) {
       setSelectedCountries(null);
       setRandomColor(null);
     } else {
-      // Eğer ülke seçili değilse listeye ekle
-
+      // If the country is not selected, add it to the list
       setSelectedCountries(country?.code);
       setRandomColor(getRandomColor());
     }
   };
 
-
-
+  //change the background color of the specified element when the page loads
   useEffect(() => {
     if (!loading) {
       const countries = data.countries;
@@ -56,12 +55,11 @@ const CountryList = () => {
             ? true
             : currencyLowerCase.includes(searchLowerCase);
         }
-        return false; // Currency null ise false döndür
+        return false; // If currency is null, it returns false
       });
       setFilterData(filteredCountries);
       if (search === "" && filteredCountries.length >= 10) {
-        // Eğer filtrelenen liste boş değilse, son öğeyi seç ve rengini ayarla
-
+        // If the filtered list is not empty, select the last element and set its color
         const value = countries[10];
         handleCountryClick(value);
       } else if (search) {
@@ -71,34 +69,36 @@ const CountryList = () => {
     }
   }, [loading, data, search, group, setFilterData]);
 
+  //loading animation will be shown when the page first loads
   if (loading)
     return (
       <div className="mt-10">
         <Loading />
       </div>
     );
+
+  //If there is an error, error message will be shown.
   if (error) return <Error message={error.message} />;
 
-  // Geri kalan bileşen kodu...
   const countries = data.countries;
 
+  //number control for groupSize input
   const handleChange = (e) => {
-    const newSize = Number(e.target.value); // Girilen değeri bir tamsayıya çevirin
+    const newSize = Number(e.target.value);
     if (!isNaN(newSize)) {
       setGroupSize(newSize);
     }
   };
 
+  //Group data by groupSize
   const handleSubmit = (e) => {
     e.preventDefault();
     if (groupSize) {
       const groups = groupDataBySize(filterData, groupSize);
-      console.log(groups); // Gruplanmış verileri konsola yazdır
       setGroupArea(groups);
       setIsGroup(true);
     }
   };
-
 
   return (
     <div className=" flex flex-col items-center justify-center mt-10">
@@ -121,8 +121,7 @@ const CountryList = () => {
           handleCountryClick,
           randomColor,
           filterData,
-          setFilterData,
-          loading
+          setFilterData
         )}
       </div>
 
@@ -148,9 +147,9 @@ const groupedCountries = (
   selectedCountries,
   handleCountryClick,
   randomColor,
-  filterData,
-  loading
+  filterData
 ) => {
+  /*If groupBy is not active, show filtered data */
   if (!groupBy) {
     return (
       <>
@@ -159,24 +158,7 @@ const groupedCountries = (
             <table className="text-sm w-full text-left text-gray-500 p-5">
               <thead className="text-sm text-gray-200 capitalize bg-blue-500">
                 <tr>
-                  <th scope="col" className="px-2 py-2">
-                    Code
-                  </th>
-                  <th scope="col" className="px-2 py-2">
-                    Country
-                  </th>
-                  <th scope="col" className="px-2 py-2">
-                    Capital
-                  </th>
-                  <th scope="col" className="px-2 py-2">
-                    Native
-                  </th>
-                  <th scope="col" className="px-2 py-2">
-                    Currency
-                  </th>
-                  <th scope="col" className="px-2 py-2">
-                    Phone
-                  </th>
+                  <TableHead />
                 </tr>
               </thead>
 
@@ -189,32 +171,22 @@ const groupedCountries = (
                 />
               </tbody>
             </table>
-            <button
-              className="border border-gray-200 px-5 py-2 rounded-xl flex items-center justify-between space-x-3  hover:bg-gray-600 hover:text-gray-50 duration-700 hover:border-gray-300 active:translate-y-7 "
-              onClick={backToTop}
-              style={{ bottom: "20px", right: "40px", position: "fixed" }}
-            >
-              <FiArrowUp />{" "}
-              <span className="font-semibold text-md">Back To Top</span>
-            </button>
+           <TopButton/>
           </div>
         ) : (
           <>
-            
-              <div className="flex items-center justify-center mt-5">
-                <p className=" text-gray-50 bg-red-700 px-4 py-4 rounded-lg">
-                  Data Not Found
-                </p>
-              </div>
-        
+            <div className="flex items-center justify-center mt-5">
+              <p className=" text-gray-50 bg-red-700 px-4 py-4 rounded-lg">
+                Data Not Found
+              </p>
+            </div>
           </>
         )}
       </>
     );
   }
 
-  // Verileri gruplayın
-
+  // grouping by currencies
   const groupData = {};
 
   countries.forEach((country) => {
@@ -234,11 +206,11 @@ const groupedCountries = (
     groupData[groupKey].push(country);
   });
 
-  // Grupları gösterin
   return (
     <div>
       {
         <>
+          {/**If there is a currency, show the list. If there is no currency, show the loading animation. */}
           {groupBy === "currency" ? (
             <>
               {Object.entries(groupData).map(([group, countryList]) => (
@@ -249,6 +221,8 @@ const groupedCountries = (
                   groupData={groupData}
                 />
               ))}
+
+              <TopButton />
             </>
           ) : (
             <div className="mt-10">

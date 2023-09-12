@@ -23,13 +23,11 @@ useEffect(()=>{
           ? true
           : currencyLowerCase.includes(searchLowerCase);
       }
-      return false; // Currency null ise false döndür
+      return false; 
     });
     setFilterGroup(filteredCountries)
      if (search === "" && filteredCountries.length >= 10) {
-       // Eğer filtrelenen liste boş değilse, son öğeyi seç ve rengini ayarla
-
-       const value = groupArea[1];
+       const value = groupArea[9];
        handleCountryClick(value);
      } else if (search) {
        const lastCountry = filteredCountries[filteredCountries.length - 1];
@@ -42,14 +40,17 @@ useEffect(()=>{
       {filterGroup.map((country, index) => (
         <tr
           key={country.code}
-          
+          className="transition-all duration-300"
           style={{
             backgroundColor:
               selectedCountries === country.code
-                ? randomColor // Seçili ülkenin arka plan rengi
+                ? randomColor 
                 : "white",
 
-                color:selectedCountries === country.code && randomColor ? "white" : "black",
+            color:
+              selectedCountries === country.code && randomColor
+                ? "white"
+                : "black",
             cursor: "pointer",
           }}
           onClick={() => handleCountryClick(country)}
