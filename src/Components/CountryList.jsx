@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { GET_COUNTRIES } from "../queries";
+import { GET_COUNTRIES } from "../data/queries";
 import Loading from "./Loading";
 import Error from "./Error";
 import FormArea from "./FormArea";
@@ -10,7 +10,7 @@ import GroupArea from "./GroupArea";
 import {  getRandomColor, groupDataBySize } from "./Function";
 import TableHead from "./TableHead";
 import TopButton from "./TopButton";
-
+import { BiSolidErrorCircle } from "react-icons/bi"
 const CountryList = () => {
   const [search, setSearch] = useState(""); // State for search term and filtering
   const [group, setGroup] = useState(""); //state for "currency" as grouping field
@@ -101,7 +101,7 @@ const CountryList = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center mt-10">
+    <div className="flex m-auto flex-col items-center justify-center mt-10">
       <div className="shadow shadow-slate-400 rounded-lg w-[400px] md:w-[600px] lg:w-[800px] p-10">
         <FormArea
           search={search}
@@ -171,13 +171,14 @@ const groupedCountries = (
                 />
               </tbody>
             </table>
-           <TopButton/>
+            <TopButton />
           </div>
         ) : (
           <>
             <div className="flex items-center justify-center mt-5">
-              <p className=" text-gray-50 bg-red-700 px-4 py-4 rounded-lg">
-                Data Not Found
+              <p className="w-[900px] flex items-center space-x-4 text-gray-50 bg-red-700 px-4 py-4 rounded-lg">
+                <BiSolidErrorCircle size={42} />
+                <span className="text-xl font-bold">Data Not Found</span>
               </p>
             </div>
           </>

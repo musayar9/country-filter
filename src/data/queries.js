@@ -10,7 +10,6 @@ export const GET_COUNTRIES = gql`
       native
       emoji
       currency
-     
     }
   }
 `;

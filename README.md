@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+## Ülke Filtreleme
+ 
+Projeyi yaparken javascript'in React framework'unu kullandım. Proje tasarımını Tailwindcss kullanarak yaptım. Grapghl üzerindende appolo kütüphanesini kullanarak verileri kendi localime çektim.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Bu proje girilen  para birimine göre bir filteleme ve gruplama işlemi yapıyor. 
 
-In the project directory, you can run:
+Sayfa ilk yüklendiğinde veriler gelirken bize bir yükleme(loading) animasyonu gösteriliyor. Veriler yüklendikten sonra animasyon kalkıyor ve yüklenen veriler bize bir tablo da sunuluyor. Gelen bu tablo üzerinden filtreleme işlemleri yapabiliyoruz.
 
-### `npm start`
+| ![img-1](images\1.jpg) | ![img-4](images\4.jpg) |
+| ---------------------- | ---------------------- |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Filtreleme işlemleri yapmak içinde  3 farklı  input alanı oluşturdum. Bu input alanına girilen verilere göre bir filtreleme işlemi yapılacak.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Birinci input(Currency Value): Bu inputa bize herhangi bir ülkenin para birimini girdiğimizde bize para birimine göre filtrelenmiş veriler gelecek. Eğer filtrelenmiş herhangi bir veri yok ise biz hata mesajı gösterilecek.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| ![img-2](images\2.jpg) | ![img-4](images\4.jpg) |
+| ---------------------- | ---------------------- |
 
-### `npm run build`
+2. İkinci input(Write Currency): Bu inputada currency yazdığımız zaman bize param birimlerine kendi içinde bir gruplama yapacak. İstenilen veriyi girerkende bize bir yükleme animasyonu gösterilecek.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| ![img-5](images\5.jpg) | ![img-3](images\3.jpg) |
+| ---------------------- | ---------------------- |
 
-### `npm run eject`
+3. Üçüncü input(Group Size): Bu input içine de verileri kaçlı olarak gruplamak istiyorak ona göre bir gruplama işlemi  yapacak. Örneğin eur para birimine göre bir filtreleme işlemi yaptığımızda ve bize 30 tane veri geldiğini varsayalım. Biz bu 35 veriyi üçerli gruplar halinde gruplamak istersek groupSize inputu içine 3 değerini girmemiz yeterli. Girilen 3 değeri sonucunda biz toplam 12 tane üçerli bir gruplama işlemi yapacak ve biz gruplar arasında ileri geri tuşları ile dolaşabileceğiz.
+Listeye Dön (return list) butonuna tıkladığımzda bize bütün listeyi getirecek.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ | ![img-6](images\6.jpg) | ![img-7](images\7.jpg) | ![img-8](images\8.jpg)   |
+ | ---------------------- | ---------------------- | ---------------------- |
+ 
+ 
+Sayfa ilk yüklendiğinde bize 10. eleman seçilmiş olarak gelecek ve arka plan rengi diğer elemanlardan farklı olacaktır. Biz herhangi bir elemana seçtiğimizde seçtiğimiz elemanın arka plan rengi otamatik olarak değişecektir. Sadece bir tane eleman seçebiliyoruz. Birden fazla eleman seçemiyoruz.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Para birimine (Currency Value) göre filtreleme işlemi yaptığımızda filtrelenmiş olan verinin en son elemanı seçilmiş ve arka plan rengi değişmiş olarak gelecek.
