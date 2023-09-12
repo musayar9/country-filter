@@ -25,6 +25,7 @@ Filtreleme işlemleri yapmak içinde  3 farklı  input alanı oluşturdum. Bu in
 | ![img-5](images\5.jpg) | ![img-3](images\3.jpg) |
 | ---------------------- | ---------------------- |
 
+![img-3](images\3.jpg) 
 3. Üçüncü input(Group Size): Bu input içine de verileri kaçlı olarak gruplamak istiyorak ona göre bir gruplama işlemi  yapacak. Örneğin eur para birimine göre bir filtreleme işlemi yaptığımızda ve bize 30 tane veri geldiğini varsayalım. Biz bu 35 veriyi üçerli gruplar halinde gruplamak istersek groupSize inputu içine 3 değerini girmemiz yeterli. Girilen 3 değeri sonucunda biz toplam 12 tane üçerli bir gruplama işlemi yapacak ve biz gruplar arasında ileri geri tuşları ile dolaşabileceğiz.
 Listeye Dön (return list) butonuna tıkladığımzda bize bütün listeyi getirecek.
 
