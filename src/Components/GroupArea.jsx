@@ -23,7 +23,7 @@ const GroupArea = ({
   };
   return (
     <>
-      <div className="flex items-end mt-5">
+      <div className="flex items-end mt-5 ">
         <button
           className=" px-4 py-2 rounded-md text-gray-50  duration-200 active:translate-y-2"
           onClick={handleTurnList}
@@ -58,21 +58,21 @@ const GroupArea = ({
         {/**Navigating through grouped data */}
 
         <button
-          className="border border-gray-300 px-2 py-2 rounded-full disabled:bg-red-500  group"
+          className="border border-gray-300 px-2 py-2 rounded-full disabled:bg-red-700  duration-200 group hover:bg-red-400 "
           disabled={count <= 0}
           onClick={() => setCount(count - 1)}
         >
-          <BsChevronLeft className="text-gray-900 group-disabled:text-gray-50  duration-500 ease-in" />
+          <BsChevronLeft className="text-gray-900 group-disabled:text-gray-50 group-hover:text-white duration-500 ease-in" />
         </button>
 
         <span className="px-4 py-2 font-bold text-gray-700">{count + 1}</span>
 
         <button
-          className="border border-gray-300 px-2 py-2 rounded-full  disabled:bg-red-500 group"
+          className="border border-gray-300 px-2 py-2 rounded-full  disabled:bg-red-700 duration-200 group hover:bg-green-400 "
           disabled={count === groupArea.length - 1}
           onClick={() => setCount(count + 1)}
         >
-          <BsChevronRight className="text-gray-900 group-disabled:text-gray-50   duration-500 ease-in" />
+          <BsChevronRight className="text-gray-900 group-disabled:text-gray-50 group-hover:text-white   duration-500 ease-in" />
         </button>
       </div>
     </>
