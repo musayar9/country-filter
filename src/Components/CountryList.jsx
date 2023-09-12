@@ -101,7 +101,9 @@ const CountryList = () => {
   };
 
   return (
-    <div className="flex m-auto flex-col items-center justify-center mt-10">
+    <div className="flex m-auto flex-col items-center justify-center mt-8">
+    
+    <h1 className="font-bold text-3xl p-4" style={{color:randomColor}}>Country Currency Filter</h1>
       <div className="shadow shadow-slate-400 rounded-lg w-[400px] md:w-[600px] lg:w-[800px] p-10">
         <FormArea
           search={search}

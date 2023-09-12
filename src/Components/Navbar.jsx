@@ -7,7 +7,7 @@ const Navbar = () => {
         <p className="flex items-center justify-center space-x-4">
           <RiEarthFill className="text-gray-50" size={36} />
           <span className="text-start text-2xl font-bold whitespace-nowrap text-gray-50">
-            Country Filter
+            Country Currency Filter
           </span>
         </p>
       </div>
