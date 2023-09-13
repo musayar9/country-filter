@@ -27,7 +27,7 @@ useEffect(()=>{
     });
     setFilterGroup(filteredCountries)
      if (search === "" && filteredCountries.length >= 10) {
-       const value = groupArea[9];
+       const value = groupArea[10];
        handleCountryClick(value);
      } else if (search) {
        const lastCountry = filteredCountries[filteredCountries.length - 1];
