@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Country Filter</title>
+        <title> Country Currency Filter</title>
         <meta name="description" content="currency-filter" />
       </Helmet>
       <Navbar />
