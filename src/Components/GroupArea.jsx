@@ -3,6 +3,7 @@ import GroupAreaList from "./GroupAreaList";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { FiArrowLeft } from "react-icons/fi";
 import TableHead from "./TableHead";
+import { Helmet } from "react-helmet";
 const GroupArea = ({
   groupArea,
   setIsGroup,
@@ -24,6 +25,10 @@ const GroupArea = ({
   };
   return (
     <>
+      <Helmet>
+        <title>Group Size</title>
+        <meta name="description" content="group-size" />
+      </Helmet>
       <div className="space-x-2 relative w-[900px] overflow-x-auto  shadow-2xl mt-5 mb-5 rounded-md">
         <table className="text-sm w-full text-left text-gray-500 p-5">
           <thead className="text-sm text-gray-200 capitalize bg-blue-500">
